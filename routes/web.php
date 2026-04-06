@@ -13,4 +13,5 @@ Route::get('/', function () {
 
 Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/kategori', [MenuController::class, 'kategori']);
+Route::get('/tambah-menu', [MenuController::class, 'tambahMenu']);
 

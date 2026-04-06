@@ -3,7 +3,7 @@
 @section('konten')
     <section class="w-full md:pl-[13rem] lg:pl-[16rem] pr-[1rem]">
         <section class="w-full flex gap-3 background-secondary rounded-md py-2.5 px-1.5 shadow-md">
-            <a href=""
+            <a href="/tambah-menu"
                 class="inline-flex gap-1 items-center h-10 bg-green-400 py-1 pl-1 pr-2 rounded-3xl hover:shadow-md transition-all duration-150 ease-in-out">
                 <span
                     class="flex justify-center items-center h-full aspect-square background-secondary rounded-full">
@@ -22,7 +22,7 @@
         </section>
     </section>
 
-    <section class="relative w-full h-screen   flex justify-end">
+    <section class="relative w-full h-screen flex justify-end">
         <section class="w-full md:ml-[13rem] lg:ml-[16rem] mr-[1rem] max-w-7xl p-4 my-1.5">
             <table class="w-full border-separate border-spacing-y-3">
                 <thead>

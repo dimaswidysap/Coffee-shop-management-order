@@ -21,6 +21,8 @@ class MenuController extends Controller
         return view('page.menu.kategori',compact('kategori'));
     }
 
-    public function createMenu(){}
+    public function tambahMenu(){
+        return view('page.menu.tambah-menu');
+    }
 }
 

@@ -11,3 +11,28 @@
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
 }
+
+input,
+textarea,
+select,
+button {
+    /* Menghilangkan border dan outline */
+    border: none;
+    outline: none;
+
+    /* Menghilangkan background bawaan */
+
+    /* Mengatur font agar mewarisi dari parent (biar tidak beda sendiri) */
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+
+    /* Menghilangkan bayangan bawaan pada iOS/Safari */
+    -webkit-appearance: none;
+    appearance: none;
+
+    /* Menghilangkan padding bawaan */
+
+    /* Mengatur box-sizing agar padding tidak merusak lebar */
+    box-sizing: border-box;
+}
