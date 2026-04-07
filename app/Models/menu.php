@@ -3,14 +3,20 @@
 namespace App\Models; // Gunakan M kapital
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
-class menu extends Model
+class Menu extends Model
 {
-    // Beritahu Laravel bahwa tabelnya bernama tb_produks
+    use HasUlids;
+
     protected $table = 'tbl_menu';
+    // protected $primaryKey = 'id';
 
-    // Jika primary key kamu bukan 'id', tambahkan ini (berdasarkan chat sebelumnya):
-    protected $guarded=['id'];
-    protected $primaryKey = 'id';
+    // Tambahkan ini agar bisa simpan data lewat Menu::create
+    protected $fillable = [
+        'id_kategori',
+        'nm_produk',
+        'harga',
+        'foto'
+    ];
 }
-

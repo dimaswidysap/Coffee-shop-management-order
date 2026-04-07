@@ -5,8 +5,7 @@
         <section class="w-full flex gap-3 background-secondary rounded-md py-2.5 px-1.5 shadow-md">
             <a href="/tambah-menu"
                 class="inline-flex gap-1 items-center h-10 bg-green-400 py-1 pl-1 pr-2 rounded-3xl hover:shadow-md transition-all duration-150 ease-in-out">
-                <span
-                    class="flex justify-center items-center h-full aspect-square background-secondary rounded-full">
+                <span class="flex justify-center items-center h-full aspect-square background-secondary rounded-full">
                     <img class="object-cover" src="{{ asset('asset/icon/add.svg') }}" alt="add-icon">
                 </span>
                 <span class="font-bold text-sm font-dark">Tambah Menu</span>
@@ -39,13 +38,13 @@
                     @foreach ($menu as $item)
                         <tr class="bg-white shadow-sm rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                             <td class="py-4 pl-4 rounded-l-xl text-sm text-gray-700 font-medium">
-                                {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
+                                <span class="px-4">{{ $loop->iteration }}</span>
                             </td>
                             <td class="py-4 text-sm text-gray-600">
-                                {{ $item->id_produk }}
+                                 {{ Str::limit($item->id, 8, '...') }}
                             </td>
                             <td class="py-4 text-sm text-gray-600">
-                                {{ $item->id_kategori }}
+                                 {{ Str::limit($item->id_kategori, 8, '...') }}
                             </td>
                             <td class="py-4 text-sm font-semibold text-gray-800">
                                 {{ $item->nm_produk }}
@@ -56,7 +55,7 @@
                             <td class="py-4 pr-4 rounded-r-xl">
                                 <div class="flex items-center justify-center gap-2">
 
-                                    <button
+                                    <a href="/detail/{{ $item->id }}"
                                         class="p-1.5 border border-gray-200 rounded text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -65,7 +64,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                    </button>
+                                    </a>
                                     <button
                                         class="p-1.5 border border-gray-200 rounded text-gray-500 hover:bg-yellow-50 hover:text-yellow-600 transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"

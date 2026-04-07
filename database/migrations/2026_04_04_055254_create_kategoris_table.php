@@ -12,8 +12,9 @@ return new class extends Migration {
     {
         //
         Schema::create('tbl_kategori', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->string('nm_kategori', 50);
+            $table->string('keterangan_kategori',255);
             $table->timestamps();
         });
     }
