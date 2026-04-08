@@ -96,4 +96,38 @@ class MenuController extends Controller
     return view('page.menu.detail',['menu'=>$data]);
 
     }
+    public function kategoriDetail($id){
+        // dd($id);
+    $data = kategori::findOrFail($id);
+
+    // dd($data);
+
+    return view('page.menu.detail-kategori',['menu'=>$data]);
+
+    }
+
+    public function editKatgeori($id){
+        $data = kategori::findOrFail($id);
+        // dd($data);
+    return view('page.menu.edit-kategori',['data'=>$data]);
+    }
+
+    public function updateKategori($id, Request $request ){
+
+    // dd('berhasil menyimpan data');
+
+     $request->validate([
+            'nama_kategori_update' => 'required|max:50',
+        ],[
+            'nama_kategori_update.required'=> 'Nama kategori tidak boleh kosong!'
+        ]);
+
+        Kategori::where('id',$id)->update([
+            'nm_kategori'=>$request->nama_kategori_update,
+            'keterangan_kategori'=>$request ->keterangan_kategori_update
+        ]);
+
+        return redirect('/kategori')->with('success', 'Data berhasil diupdate');
+
+    }
 }
