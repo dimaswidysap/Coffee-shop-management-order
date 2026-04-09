@@ -10,7 +10,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="flex flex-col mb-4"> {{-- Tambah sedikit margin bottom agar antar input tidak menempel --}}
+                <div class="flex flex-col mb-4">
                     <label for="nm_kategori" class="font-dark font-semibold">Edit Nama Kategori</label>
                     <input type="text" id="" name="nama_kategori_update"
                         value="{{ old('nm_kategori', $data->nm_kategori) }}"

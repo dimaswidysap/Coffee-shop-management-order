@@ -13,7 +13,6 @@ class MenuController extends Controller
         $menu = Menu::all();
         // dd($menu);
         return view('page.menu.menu', compact('menu'));
-
     }
 
     public function kategori()
@@ -22,8 +21,6 @@ class MenuController extends Controller
         //  dd($kategori);
         return view('page.menu.kategori', compact('kategori'));
     }
-
-
 
     // nemampilkan halaman form menu
 
@@ -36,26 +33,29 @@ class MenuController extends Controller
         return view('page.menu.tambah-menu', compact('kategori'));
     }
 
-
     // nemampilkan halaman form kategroi
-    public function tambahKategori() {
+    public function tambahKategori()
+    {
         return view('page.menu.tambah-kategori');
     }
 
-
     // menambah menu
 
-    public function simpanMenu(Request $request)   {
+    public function simpanMenu(Request $request)
+    {
         // Sesuaikan validasi dengan nama atribut name di tag <input> HTML
-        $request->validate([
-            'nama_menu' => 'required|string|max:50',
-            'harga_menu' => 'required|numeric|min:0',
-            'kategori_menu' => 'required|exists:tbl_kategori,id',
-        ],[
-            'nama_menu.required'=>'Nama menu jangan kosong!',
-            'harga_menu.required'=>'Nama menu jangan kosong!',
-            'kategori_menu.required'=>'Nama menu jangan kosong!',
-        ]);
+        $request->validate(
+            [
+                'nama_menu' => 'required|string|max:50',
+                'harga_menu' => 'required|numeric|min:0',
+                'kategori_menu' => 'required|exists:tbl_kategori,id',
+            ],
+            [
+                'nama_menu.required' => 'Nama menu jangan kosong!',
+                'harga_menu.required' => 'Nama menu jangan kosong!',
+                'kategori_menu.required' => 'Nama menu jangan kosong!',
+            ],
+        );
 
         // Sesuaikan key (kiri) dengan kolom database, value (kanan) dengan input form
         menu::create([
@@ -67,16 +67,19 @@ class MenuController extends Controller
         return redirect('/menu')->with('success', 'Menu berhasil ditambahkan!');
     }
 
-
     // menambah kategori
 
-    public function simpanKategori(Request $request) {
-        $request->validate([
-            'nama_kategori' => 'required|max:50',
-            'keterangan_kategori' => 'required|max:255',
-        ],[
-            'nama_kategori.required'=> 'masukan nama kategori!'
-        ]);
+    public function simpanKategori(Request $request)
+    {
+        $request->validate(
+            [
+                'nama_kategori' => 'required|max:50',
+                'keterangan_kategori' => 'required|max:255',
+            ],
+            [
+                'nama_kategori.required' => 'masukan nama kategori!',
+            ],
+        );
 
         Kategori::create([
             'nm_kategori' => $request->nama_kategori,
@@ -86,48 +89,95 @@ class MenuController extends Controller
         return redirect('/kategori')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
-
-    public function detail($id){
+    public function detail($id)
+    {
         // dd($id);
-    $data = menu::findOrFail($id);
+        $data = menu::findOrFail($id);
 
-    // dd($data);
+        // dd($data);
 
-    return view('page.menu.detail',['menu'=>$data]);
-
+        return view('page.menu.detail', ['menu' => $data]);
     }
-    public function kategoriDetail($id){
+    public function kategoriDetail($id)
+    {
         // dd($id);
-    $data = kategori::findOrFail($id);
+        $data = kategori::findOrFail($id);
 
-    // dd($data);
+        // dd($data);
 
-    return view('page.menu.detail-kategori',['menu'=>$data]);
-
+        return view('page.menu.detail-kategori', ['menu' => $data]);
     }
 
-    public function editKatgeori($id){
+    public function editKatgeori($id)
+    {
         $data = kategori::findOrFail($id);
         // dd($data);
-    return view('page.menu.edit-kategori',['data'=>$data]);
+        return view('page.menu.edit-kategori', ['data' => $data]);
     }
 
-    public function updateKategori($id, Request $request ){
+    public function updateKategori($id, Request $request)
+    {
+        // dd('berhasil menyimpan data');
 
-    // dd('berhasil menyimpan data');
+        $request->validate(
+            [
+                'nama_kategori_update' => 'required|max:50',
+            ],
+            [
+                'nama_kategori_update.required' => 'Nama kategori tidak boleh kosong!',
+            ],
+        );
 
-     $request->validate([
-            'nama_kategori_update' => 'required|max:50',
-        ],[
-            'nama_kategori_update.required'=> 'Nama kategori tidak boleh kosong!'
-        ]);
-
-        Kategori::where('id',$id)->update([
-            'nm_kategori'=>$request->nama_kategori_update,
-            'keterangan_kategori'=>$request ->keterangan_kategori_update
+        Kategori::where('id', $id)->update([
+            'nm_kategori' => $request->nama_kategori_update,
+            'keterangan_kategori' => $request->keterangan_kategori_update,
         ]);
 
         return redirect('/kategori')->with('success', 'Data berhasil diupdate');
-
     }
+
+    public function editMenu($id)
+    {
+        $data = menu::findOrFail($id);
+
+    // dd($data);
+
+        return view('page.menu.edit-menu', ['data' => $data]);
+    }
+
+    public function updateMenu($id, Request $request){
+
+    $request->validate(
+            [
+                'nama_menu_update' => 'required|max:50',
+                'harga_menu_update' => 'required',
+            ],
+            [
+                'nama_menu_update.required' => 'Nama menu tidak boleh kosong!',
+                'harga_menu_update.required' => 'Harga menu tidak boleh kosong!',
+            ],
+        );
+
+
+    menu::where('id', $id)->update([
+            'nm_produk' => $request->nama_menu_update,
+            'harga' => $request->harga_menu_update,
+
+        ]);
+
+         return redirect('/menu')->with('success', 'Menu berhasil diupdate');
+    }
+
+
+    public function destroy($id)
+{
+    // Cari data berdasarkan ID
+    $menu = Menu::findOrFail($id);
+
+    // Hapus data
+    $menu->delete();
+
+    // Kembalikan ke halaman sebelumnya dengan pesan sukses
+    return redirect()->back()->with('success', 'Menu berhasil dihapus!');
+}
 }

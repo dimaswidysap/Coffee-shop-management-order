@@ -29,3 +29,9 @@ Route::get('/detail-kategori/{id}',[MenuController::class,'kategoriDetail']);
 
 Route::get('/kategori/{id}/edit',[MenuController::class,'editKatgeori']);
 Route::put('/kategori/{id}',[MenuController::class,'updateKategori']);
+
+Route::get('/menu/{id}/edit', [MenuController::class, 'editMenu']);
+Route::put('/menu/{id}',[MenuController::class,"updateMenu"]);
+
+
+Route::delete('menu/{id}',[MenuController::class, 'destroy']);
