@@ -3,12 +3,12 @@
 <head>
     @vite(['resources/css/app.css', 'resources/css/colors.css', 'resources/css/table.css'])
 </head>
-<body class="background-primary">
+<body class="bg-background">
 
-    @include('layout.header')
-    @include('layout.sidebar')
 
-    <main>
+    <main class=" w-full max-w-7xl m-auto relative">
+        @include('layout.header')
+        @include('layout.sidebar')
         @yield('konten')
     </main>
 

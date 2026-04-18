@@ -5,29 +5,3 @@ body,
 html {
     font-family: "Montserrat", sans-serif;
 }
-
-:root {
-    --font-dark: #3c3c3c;
-    --font-white: rgb(211, 211, 211);
-    --background-primary: #cfcece;
-    --background-secondary: #f0f0f0;
-    --accent: green;
-}
-
-.font-white {
-    color: var(--font-white);
-}
-.font-dark {
-    color: var(--font-dark);
-}
-
-.accent {
-    background-color: var(--accent) !important;
-}
-
-.background-primary {
-    background-color: var(--background-primary) !important;
-}
-.background-secondary {
-    background-color: var(--background-secondary) !important;
-}
