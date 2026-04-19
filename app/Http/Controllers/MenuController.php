@@ -140,14 +140,14 @@ class MenuController extends Controller
     {
         $data = menu::findOrFail($id);
 
-    // dd($data);
+        // dd($data);
 
         return view('page.menu.edit-menu', ['data' => $data]);
     }
 
-    public function updateMenu($id, Request $request){
-
-    $request->validate(
+    public function updateMenu($id, Request $request)
+    {
+        $request->validate(
             [
                 'nama_menu_update' => 'required|max:50',
                 'harga_menu_update' => 'required',
@@ -158,26 +158,31 @@ class MenuController extends Controller
             ],
         );
 
-
-    menu::where('id', $id)->update([
+        menu::where('id', $id)->update([
             'nm_produk' => $request->nama_menu_update,
             'harga' => $request->harga_menu_update,
-
         ]);
 
-         return redirect('/menu')->with('success', 'Menu berhasil diupdate');
+        return redirect('/menu')->with('success', 'Menu berhasil diupdate');
     }
 
-
     public function destroy($id)
-{
-    // Cari data berdasarkan ID
-    $menu = Menu::findOrFail($id);
+    {
+        // Cari data berdasarkan ID
+        $menu = Menu::findOrFail($id);
 
-    // Hapus data
-    $menu->delete();
+        // Hapus data
+        $menu->delete();
 
-    // Kembalikan ke halaman sebelumnya dengan pesan sukses
-    return redirect()->back()->with('success', 'Menu berhasil dihapus!');
-}
+        // Kembalikan ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Menu berhasil dihapus!');
+    }
+
+    public function destroyKategori($id)
+    {
+        $kategori = Kategori::findOrFail($id);
+        $kategori->delete();
+
+        return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
+    }
 }

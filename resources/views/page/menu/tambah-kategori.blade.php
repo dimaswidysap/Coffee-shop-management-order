@@ -16,7 +16,7 @@
                     <div class="flex flex-col w-full px-2">
                         <label class="font-black text-foreground" for="">Masukan Nama Kategori</label>
                         <input name="nama_kategori"
-                            class="bg-background-second py-1 px-2 shadow-md rounded-md font-medium text-sm" type="text">
+                            class="bg-background-second text-foreground! py-1 px-2 shadow-md rounded-md font-medium text-sm" type="text">
                         @error('nama_kategori')
                             <span class="text-red-500 text-xs mt-1 font-semibold">
                                 {{ $message }}
@@ -26,7 +26,7 @@
                     <div class="flex flex-col w-full px-2 mt-4">
                         <label class="font-black text-foreground" for="">Masukan Deskripsi Kategori</label>
                         <textarea name="keterangan_kategori" id="" cols="30" rows="10"
-                            class="bg-background-second h-[5rem] py-1 px-2 shadow-md rounded-md font-medium text-sm"></textarea>
+                            class="bg-background-second h-[5rem] text-foreground! py-1 px-2 shadow-md rounded-md font-medium text-sm"></textarea>
                     </div>
                     <div class="flex flex-col w-full px-2 mt-6">
                         <button type="submit" class="w-full bg-background-second py-2 rounded-md shadow-xl cursor-pointer">

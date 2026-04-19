@@ -16,6 +16,14 @@ class KategoriSeeder extends Seeder
     {
         //
         DB::table('tbl_kategori')->insert([
+
+            [
+                'id' => Str::ulid(),
+                'nm_kategori' => 'Paket Menu',
+                'keterangan_kategori' => 'Menu yang sudah dipaketkan',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             [
                 'id' => Str::ulid(),
                 'nm_kategori' => 'nasi',

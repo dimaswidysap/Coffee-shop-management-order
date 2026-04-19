@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\transaksiController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Routing\Router;
 
@@ -35,3 +36,9 @@ Route::put('/menu/{id}',[MenuController::class,"updateMenu"]);
 
 
 Route::delete('menu/{id}',[MenuController::class, 'destroy']);
+Route::delete('kategori/{id}',[MenuController::class, 'destroyKategori']);
+
+
+// halaman transaksi
+Route::get('/transaksi',[transaksiController::class,'transaksi']);
+
