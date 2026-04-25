@@ -13,10 +13,9 @@ class Menu extends Model
     // protected $primaryKey = 'id';
 
     // Tambahkan ini agar bisa simpan data lewat Menu::create
-    protected $fillable = [
-        'id_kategori',
-        'nm_produk',
-        'harga',
-        'foto'
-    ];
+    protected $fillable = ['id_kategori', 'nm_produk', 'harga', 'foto'];
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id');
+    }
 }

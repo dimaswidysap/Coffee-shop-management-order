@@ -10,7 +10,7 @@
     <button type="button" class="inline-flex flex-col items-center cursor-pointer gap-2">
         {{-- Kotak Gambar/Placeholder --}}
         <div class="w-[13rem]! md:w-[10rem]! aspect-square bg-background-second p-2 rounded-xl shadow-2xl!">
-            <img src="" alt="" class="w-full h-full bg-foreground rounded-md object-cover overflow-hidden">
+            <img src={{ asset('gambar_menu/'. $item->foto) }} alt="foto menu" class="w-full h-full bg-foreground rounded-md object-cover overflow-hidden">
         </div>
 
         {{-- Teks Menu --}}

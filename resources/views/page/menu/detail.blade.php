@@ -13,10 +13,17 @@
                         'ID Menu'     => $menu->id,
                         'ID Kategori' => $menu->id_kategori,
                         'Harga'       => 'Rp ' . number_format($menu->harga, 0, ',', '.'),
+                        'Foto'=> $menu->foto,
                         'Created At'  => $menu->created_at->format('d M Y H:i'),
                         'Updated At'  => $menu->updated_at->format('d M Y H:i'),
                     ];
                 @endphp
+
+                <figure class="w-[15rem] aspect-square bg-background-second shadow-md rounded-md p-1.5 overflow-hidden">
+                    <div class="w-full h-full bg-foreground rounded-sm overflow-hidden">
+                        <img src={{ asset('gambar_menu/'.$menu->foto) }} alt="gambar-produk" class='object-center'>
+                    </div>
+                </figure>
 
                 @foreach ($details as $label => $value)
                     <div class="w-full flex gap-4">

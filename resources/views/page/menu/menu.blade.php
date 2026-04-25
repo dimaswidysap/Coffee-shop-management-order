@@ -30,10 +30,10 @@
                     <tr class="text-foreground uppercase text-xs tracking-wider">
                         <th class="w-12 text-left pb-2 pl-4 font-semibold">NO</th>
                         <th class="w-32 text-left pb-2 font-semibold">ID PRODUK</th>
-                        <th class="w-32 text-left pb-2 font-semibold">ID KATEGORI</th>
                         <th class="w-1/4 text-left pb-2 font-semibold">NAMA PRODUK</th>
-                        <th class="w-1/4 text-left pb-2 font-semibold">HARGA</th>
-                        <th class="w-32 text-center pb-2 font-semibold">AKSI</th>
+                        <th class="w-32 text-left pb-2 font-semibold">HARGA</th>
+                        <th class="text-left pb-2 font-semibold">NAMA KATEGORI</th>
+                        <th class="text-center pb-2 font-semibold">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,14 +45,15 @@
                             <td class="py-4 text-sm text-foreground">
                                 {{ Str::limit($item->id, 8, '...') }}
                             </td>
-                            <td class="py-4 text-sm text-foreground">
-                                {{ Str::limit($item->id_kategori, 8, '...') }}
-                            </td>
                             <td class="py-4 text-sm font-semibold text-foreground">
                                 {{ $item->nm_produk }}
                             </td>
                             <td class="py-4 text-sm text-foreground">
                                 Rp {{ number_format($item->harga, 0, ',', '.') }}
+                            </td>
+                            <td class="py-4 text-sm text-foreground">
+                                {{-- {{ Str::limit($item->id_kategori, 8, '...') }} --}}
+                                {{ $item->kategori->nm_kategori }}
                             </td>
                             <td class="py-4 pr-4 rounded-r-xl">
                                 <div class="flex items-center justify-center gap-2">

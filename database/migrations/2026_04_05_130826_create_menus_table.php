@@ -12,11 +12,13 @@ return new class extends Migration {
     {
         Schema::create('tbl_menu', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('id_kategori');
+            $table->foreignUlid('id_kategori');
             $table->string('nm_produk', 50);
-            $table->integer('harga');
-            $table->text('foto')->nullable();
+            $table->bigInteger('harga');
+            $table->text('foto');
             $table->timestamps();
+
+            $table->foreign('id_kategori')->references('id')->on('tbl_kategori')->onDelete('cascade');
         });
     }
 
