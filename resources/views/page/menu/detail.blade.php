@@ -2,7 +2,7 @@
 
 @section('konten')
     <section class="w-full md:pl-[13rem] lg:pl-[16rem] pr-4 flex justify-end">
-        <section class="h-52 w-full max-w-7xl">
+        <section class="pb-[10rem]  w-full max-w-7xl">
             <h1 class="py-12 text-3xl font-black text-foreground">Detail Menu</h1>
 
             <section class="w-full flex flex-col gap-4">

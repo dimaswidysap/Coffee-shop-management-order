@@ -54,7 +54,7 @@
                     </div>
                     <div class="relative flex justify-center items-center flex-col my-4 mx-2 rounded-md text-foreground h-[15rem] w-full bg-background-second outline-2 outline-foreground/20 p-2">
                         <label for="foto" class="absolute form-label mb-4">Foto Produk</label>
-                        <input type="file" name="foto" class="form-control  h-full w-full" accept="image/*">
+                        <input type="file" name="foto" accept="image/*" class="form-control  h-full w-full" >
                         <small class="text-muted absolute mt-4">Format: jpg, jpeg, png. Maks: 2MB</small>
                          @error('foto')
                             <span class="text-red-500 text-xs mt-1 font-semibold">

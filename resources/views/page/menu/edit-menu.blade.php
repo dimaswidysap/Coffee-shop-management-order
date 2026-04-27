@@ -11,9 +11,26 @@
             <h1 class="pb-12 text-3xl font-black text-foreground">Edit Menu</h1>
 
             {{-- Pastikan action diarahkan ke route update dan tambahkan method PUT --}}
-            <form class="w-full" action="/menu/{{ $data->id }}" method="POST">
+            <form class="w-full" action="/menu/{{ $data->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+
+
+                <div class="flex gap-4 mb-3">
+                    <figure class="relative w-[10rem] aspect-square bg-background-second rounded-md p-1.5">
+                        <span class="absolute bottom-full font-black text-foreground">Foto saat ini.</span>
+                        <div class="w-full h-full rounded-sm bg-foreground">
+                            <img src={{ asset('gambar_menu/' . $data->foto) }} alt="foto menu">
+                        </div>
+                    </figure>
+                    <div
+                        class="relative w-[10rem] aspect-square bg-background-second rounded-md outline-1 outline-foreground/30 flex justify-center items-center">
+                        <span class="absolute left-0 bottom-full font-black text-foreground w-[15rem]">Update foto
+                            disini!</span>
+                        <input type="file" name="update_foto"
+                            class="w-full h-full form-control cursor-pointer text-foreground! p-2" accept="image/*">
+                    </div>
+                </div>
 
                 <div class="flex flex-col mb-4">
                     <label for="nm_kategori" class="text-foreground font-semibold">Edit Nama Menu</label>

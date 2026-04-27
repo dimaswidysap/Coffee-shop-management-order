@@ -7,6 +7,7 @@ use App\Models\Kategori; // Import Model
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class MenuController extends Controller
 {
@@ -67,7 +68,7 @@ class MenuController extends Controller
         // 2. Jika validasi lolos, baru buat nama file
 
         $namaFile = Str::random(5) . '.' . $request->foto->extension();
-        $request->foto->move(public_path('gambar_menu'),$namaFile);
+        $request->foto->move(public_path('gambar_menu'), $namaFile);
 
         // dd($namaFile);
 
@@ -78,7 +79,7 @@ class MenuController extends Controller
         menu::create([
             'nm_produk' => $request->nama_menu,
             'harga' => $request->harga_menu,
-            'foto'=> $namaFile,
+            'foto' => $namaFile,
             'id_kategori' => $request->kategori_menu,
         ]);
 
@@ -164,48 +165,68 @@ class MenuController extends Controller
     }
 
     public function updateMenu($id, Request $request)
-    {
-        $request->validate(
-            [
-                'nama_menu_update' => 'required|max:50',
-                'harga_menu_update' => 'required',
-            ],
-            [
-                'nama_menu_update.required' => 'Nama menu tidak boleh kosong!',
-                'harga_menu_update.required' => 'Harga menu tidak boleh kosong!',
-            ],
-        );
-
-        menu::where('id', $id)->update([
-            'nm_produk' => $request->nama_menu_update,
-            'harga' => $request->harga_menu_update,
-        ]);
-
-        return redirect('/menu')->with('success', 'Menu berhasil diupdate');
-    }
-
-  public function destroy($id)
 {
-    // Cari data berdasarkan ID
+    // 1. Validasi (Pastikan nama input konsisten: update_foto)
+    $request->validate(
+        [
+            'nama_menu_update' => 'required|max:50',
+            'harga_menu_update' => 'required|numeric',
+            'update_foto' => 'nullable|image|mimes:jpg,png,jpeg|max:2000',
+        ],
+        [
+            'nama_menu_update.required' => 'Nama menu tidak boleh kosong!',
+            'harga_menu_update.required' => 'Harga menu tidak boleh kosong!',
+            'update_foto.mimes' => 'Foto hanya boleh jpg, png, jpeg',
+            'update_foto.max' => 'Ukuran foto maksimal 2MB',
+        ],
+    );
+
     $menu = Menu::findOrFail($id);
+    $namaFile = $menu->foto; // Default gunakan foto lama
 
-
-
-    // Hapus file gambar jika ada
-    if ($menu->foto) {
-        $imagePath = public_path('gambar_menu/'.$menu->foto);
-
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+    // 2. Logika Upload File
+    if ($request->hasFile('update_foto')) {
+        // Hapus foto lama jika ada (opsional tapi disarankan agar storage tidak penuh)
+        if ($menu->foto && file_exists(public_path('gambar_menu/' . $menu->foto))) {
+            unlink(public_path('gambar_menu/' . $menu->foto));
         }
+
+        // Simpan foto baru
+        $file = $request->file('update_foto');
+        $namaFile = Str::random(5) . '.' . $file->extension();
+        $file->move(public_path('gambar_menu'), $namaFile);
     }
 
-    // Hapus data dari database
-    $menu->delete();
+    // 3. Update Data
+    $menu->update([
+        'nm_produk' => $request->nama_menu_update,
+        'harga'     => $request->harga_menu_update,
+        'foto'      => $namaFile,
+    ]);
 
-    // Kembalikan ke halaman sebelumnya dengan pesan sukses
-    return redirect()->back()->with('success', 'Menu berhasil dihapus!');
+    return redirect('/menu')->with('success', 'Menu berhasil diupdate');
 }
+
+    public function destroy($id)
+    {
+        // Cari data berdasarkan ID
+        $menu = Menu::findOrFail($id);
+
+        // Hapus file gambar jika ada
+        if ($menu->foto) {
+            $imagePath = public_path('gambar_menu/' . $menu->foto);
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        // Hapus data dari database
+        $menu->delete();
+
+        // Kembalikan ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Menu berhasil dihapus!');
+    }
 
     public function destroyKategori($id)
     {
@@ -214,4 +235,10 @@ class MenuController extends Controller
 
         return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
     }
+
+    public function user (){
+
+    return view('page.menu.user');
+    }
 }
+

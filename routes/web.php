@@ -3,11 +3,33 @@
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\transaksiController;
 use Illuminate\Support\Facades\Route;
+
 use Symfony\Component\Routing\Router;
 
+use App\Http\Controllers\CartController;
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/decrease', [CartController::class, 'decrease'])->name('cart.decrease');
+
+
+// landing page
 Route::get('/', function () {
-    return view('beranda');
+    return view('page.home.landing-page');
 });
+
+Route::get('/user',[MenuController::class, 'user']);
+
+
+// halaman transaksi
+Route::get('/transaksi',[transaksiController::class,'transaksi']);
+
+
+// Route::get('/admin/menu', fn() => view('admin.menu'))->name('admin.menu');
+// Route::get('/kasir/transaksi', fn() => view('kasir.transaksi'))->name('kasir.transaksi');
+
+
+
+
 
 
 
@@ -39,6 +61,7 @@ Route::delete('menu/{id}',[MenuController::class, 'destroy']);
 Route::delete('kategori/{id}',[MenuController::class, 'destroyKategori']);
 
 
-// halaman transaksi
-Route::get('/transaksi',[transaksiController::class,'transaksi']);
+
+// halaman user
+
 

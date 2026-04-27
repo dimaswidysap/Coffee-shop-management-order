@@ -45,9 +45,9 @@
     </nav>
 
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 mb-4 w-[90%]">
-        <button class="w-full cursor-pointer justify-center py-2 inline-flex bg-red-700 rounded-md shadow-2xl">
+        <a href="/" class="w-full cursor-pointer justify-center py-2 inline-flex bg-red-700 rounded-md shadow-2xl">
             <span class="font-black text-foreground">Logout</span>
-        </button>
+        </a>
     </div>
 
 </section>

@@ -1,8 +1,10 @@
 <!doctype html>
 <html>
 <head>
-    @vite(['resources/css/app.css', 'resources/css/colors.css', 'resources/css/table.css'])
+    @vite(['resources/css/app.css', 'resources/css/colors.css', 'resources/css/table.css','resources/js/app.js','resources/js/cart.js' ])
+
 </head>
+
 <body class="bg-background">
 
 
