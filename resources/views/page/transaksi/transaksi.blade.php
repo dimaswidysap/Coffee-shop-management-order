@@ -11,7 +11,8 @@
                 <header class="w-full h-16 bg-background flex justify-between px-1 items-center shrink-0">
                     <h1 class="font-black text-foreground">NOTA</h1>
                     <div class="h-[90%] aspect-square rounded-full flex justify-center items-center">
-                        <button class="absolute cursor-pointer inline-flex justify-center items-center h-10 rounded-full aspect-square bg-background-second shadow-md">
+                        <button
+                            class="absolute cursor-pointer inline-flex justify-center items-center h-10 rounded-full aspect-square bg-background-second shadow-md">
                             <span class="absolute w-[40%] h-1 rounded-md bg-foreground -rotate-45"></span>
                             <span class="absolute w-[40%] h-1 rounded-md bg-foreground rotate-45"></span>
                         </button>
@@ -29,16 +30,17 @@
             @foreach ($menu as $item)
                 {{-- Tambahkan class btn-add-cart dan data attributes --}}
                 <button type="button" class="btn-add-cart group inline-flex flex-col items-center cursor-pointer gap-3"
-        data-id="{{ $item->id }}"
-        data-name="{{ $item->nm_produk }}"
-        data-price="{{ $item->harga }}">
-                    <div class="relative w-32 h-32 md:w-52 md:h-52 bg-background-second p-2 rounded-xl shadow-xl outline-1 outline-red-700/50">
+                    data-id="{{ $item->id }}" data-name="{{ $item->nm_produk }}" data-price="{{ $item->harga }}">
+                    <div
+                        class="relative w-32 h-32 md:w-52 md:h-52 bg-background-second p-2 rounded-xl shadow-xl outline-1 outline-red-700/50">
                         <div class="w-full h-full overflow-hidden rounded-md bg-foreground">
-                            <img loading="lazy" src="{{ asset('gambar_menu/' . $item->foto) }}" alt="{{ $item->nm_produk }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <img loading="lazy" src="{{ asset('gambar_menu/' . $item->foto) }}" alt="{{ $item->nm_produk }}"
+                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
                         </div>
                     </div>
 
-                    <span class="w-32 md:w-52 px-2 text-lg md:text-xl font-semibold text-white text-center line-clamp-2 leading-tight">
+                    <span
+                        class="w-32 md:w-52 px-2 text-lg md:text-xl font-semibold text-white text-center line-clamp-2 leading-tight">
                         {{ $item->nm_produk }}
                     </span>
                 </button>
