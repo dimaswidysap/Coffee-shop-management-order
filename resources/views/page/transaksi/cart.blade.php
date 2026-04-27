@@ -1,7 +1,10 @@
+@php $total = 0; @endphp
+
 @if(session('cart') && count(session('cart')) > 0)
-    <div class="flex flex-col gap-2 h-full relative">
+    <div class="flex flex-col gap-2 h-full relative pb-24 overflow-y-auto">
         @foreach(session('cart') as $id => $details)
-            <div class="flex justify-between items-center  rounded-md ">
+            @php $total += $details['harga'] * $details['quantity']; @endphp
+            <div class="flex justify-between items-center rounded-md p-2 bg-background-second/50">
                 <span class="text-foreground font-semibold text-sm md:text-base line-clamp-1 w-1/2">
                     {{ $details['name'] }}
                 </span>
@@ -14,12 +17,12 @@
             </div>
         @endforeach
 
-        <div class="w-full absolute bottom-0 bg-background py-1.5 px-0.5 rounded-md shadow-2xl">
+        <div class="w-full absolute bottom-0 bg-background py-0.5 px-0.5 rounded-md shadow-2xl outline-1 outline-foreground/30">
             <span class="inline-flex w-full py-1 px-0.5 font-bold text-foreground">
                 <p>Total :</p>
-                <p class="ml-2">20.000</p>
+                <p class="ml-2">Rp {{ number_format($total, 0, ',', '.') }}</p>
             </span>
-            <button class="w-full inline-flex justify-center items-center bg-red-700 rounded-md py-1.5">
+            <button type="button" id="btn-checkout" class="w-full inline-flex justify-center items-center cursor-pointer bg-background-second rounded-md py-1.5">
                 <span class="font-bold text-foreground">Cetak NOTA</span>
             </button>
         </div>

@@ -10,7 +10,9 @@ use App\Http\Controllers\CartController;
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/decrease', [CartController::class, 'decrease'])->name('cart.decrease');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
+Route::get('/riwayat-transaksi', [CartController::class, 'index'])->name('transaksi.index');
 
 // landing page
 Route::get('/', function () {
@@ -22,6 +24,9 @@ Route::get('/user',[MenuController::class, 'user']);
 
 // halaman transaksi
 Route::get('/transaksi',[transaksiController::class,'transaksi']);
+
+
+Route::get('/semua-transaksi',[CartController::class,'index']);
 
 
 // Route::get('/admin/menu', fn() => view('admin.menu'))->name('admin.menu');

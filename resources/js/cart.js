@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!cartContainer || !csrfToken) return;
 
-    // Fungsi untuk menambah item
+    // 1. UPDATE: Tambah fungsi Add untuk mengirimkan price
     document.querySelectorAll(".btn-add-cart").forEach((button) => {
         button.addEventListener("click", function () {
             const id = this.getAttribute("data-id");
             const name = this.getAttribute("data-name");
+            const price = this.getAttribute("data-price"); // Ambil harga
 
             fetch("/cart/add", {
                 method: "POST",
@@ -18,12 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Content-Type": "application/json",
                     "X-CSRF-TOKEN": csrfToken,
                 },
-                body: JSON.stringify({ id: id, name: name }),
+                body: JSON.stringify({ id: id, name: name, price: price }), // Kirim harga
             })
                 .then((response) => response.text())
                 .then((html) => {
-                    cartContainer.innerHTML = html; // Update tampilan HTML cart
-                    attachDecreaseEvent(); // Pasang kembali event listener untuk tombol kurang yang baru dirender
+                    cartContainer.innerHTML = html;
                 })
                 .catch((error) =>
                     console.error("Error adding to cart:", error),
@@ -31,32 +31,55 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Fungsi untuk mengurangi item (harus bisa dipanggil ulang setelah render)
-    function attachDecreaseEvent() {
-        document.querySelectorAll(".btn-decrease").forEach((button) => {
-            button.addEventListener("click", function () {
-                const id = this.getAttribute("data-id");
+    // 2. UPDATE: Gunakan Event Delegation pada Cart Container
+    // Ini menangani tombol decrease (-) dan Cetak NOTA sekaligus tanpa perlu re-attach event
+    cartContainer.addEventListener("click", function (e) {
+        // A. Jika yang diklik adalah tombol decrease
+        if (e.target.closest(".btn-decrease")) {
+            const button = e.target.closest(".btn-decrease");
+            const id = button.getAttribute("data-id");
 
-                fetch("/cart/decrease", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": csrfToken,
-                    },
-                    body: JSON.stringify({ id: id }),
+            fetch("/cart/decrease", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                body: JSON.stringify({ id: id }),
+            })
+                .then((response) => response.text())
+                .then((html) => {
+                    cartContainer.innerHTML = html;
                 })
-                    .then((response) => response.text())
-                    .then((html) => {
-                        cartContainer.innerHTML = html; // Update tampilan HTML cart
-                        attachDecreaseEvent();
-                    })
-                    .catch((error) =>
-                        console.error("Error decreasing cart:", error),
-                    );
-            });
-        });
-    }
+                .catch((error) =>
+                    console.error("Error decreasing cart:", error),
+                );
+        }
 
-    // Jalankan event decrease pertama kali saat halaman dimuat
-    attachDecreaseEvent();
+        // B. Jika yang diklik adalah tombol Cetak NOTA
+        if (e.target.closest("#btn-checkout")) {
+            fetch("/cart/checkout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+            })
+                .then((response) => {
+                    if (!response.ok)
+                        throw new Error("Terjadi kesalahan jaringan");
+                    return response.text();
+                })
+                .then((html) => {
+                    // Cart berhasil disimpan dan dikosongkan dari session,
+                    // update tampilan ke mode kosong
+                    cartContainer.innerHTML = html;
+                    alert("Transaksi Berhasil Disimpan!"); // Opsional: Beri notifikasi sukses
+                })
+                .catch((error) => {
+                    console.error("Error checkout:", error);
+                    alert("Gagal memproses transaksi.");
+                });
+        }
+    });
 });

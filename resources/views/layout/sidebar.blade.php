@@ -1,6 +1,7 @@
 @php
     $isMenuActive = request()->is(['menu', 'tambah-menu','detail/*','menu/*/edit']);
     $isKategoriActive = request()->is(['kategori', 'tambah-kategori','detail-kategori/*','kategori/*/edit']);
+    $isTransaksiActive= request()->is(['semua-transaksi']);
 @endphp
 
 <section class="fixed left-0 h-screen md:w-[12rem] lg:w-[15rem] z-100 bg-background-second inset-0 shadow-2xl">
@@ -28,6 +29,16 @@
                         <img src="{{ asset('asset/icon/kategori.svg') }}" alt="">
                     </span>
                     <span class="font-bold text-sm text-foreground ">Kategori</span>
+                </a>
+            </li>
+
+            <li class="w-full transition-all duration-200 ease-in-out rounded-4xl group
+               {{ $isTransaksiActive ? 'bg-background shadow-md' : 'hover:bg-background' }}">
+                <a href="/semua-transaksi" class="w-full flex pl-1 py-1 items-center gap-1">
+                    <span class="inline-flex h-10 aspect-square p-1.5 bg-foreground rounded-full">
+                        <img src="{{ asset('asset/icon/user.svg') }}" alt="">
+                    </span>
+                    <span class="font-bold text-sm text-foreground ">Transaksi</span>
                 </a>
             </li>
 

@@ -29,9 +29,9 @@
             @foreach ($menu as $item)
                 {{-- Tambahkan class btn-add-cart dan data attributes --}}
                 <button type="button" class="btn-add-cart group inline-flex flex-col items-center cursor-pointer gap-3"
-                    data-id="{{ $item->id }}"
-                    data-name="{{ $item->nm_produk }}">
-
+        data-id="{{ $item->id }}"
+        data-name="{{ $item->nm_produk }}"
+        data-price="{{ $item->harga }}">
                     <div class="relative w-32 h-32 md:w-52 md:h-52 bg-background-second p-2 rounded-xl shadow-xl outline-1 outline-red-700/50">
                         <div class="w-full h-full overflow-hidden rounded-md bg-foreground">
                             <img loading="lazy" src="{{ asset('gambar_menu/' . $item->foto) }}" alt="{{ $item->nm_produk }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
