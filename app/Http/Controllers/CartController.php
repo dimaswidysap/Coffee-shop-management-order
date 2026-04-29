@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Transaksi;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
@@ -20,10 +20,11 @@ class CartController extends Controller
         } else {
             // Jika belum ada, buat baru
             $cart[$id] = [
-                "id" => $id,
-                "name" => $request->name,
-                "harga" => $request->price,
-                "quantity" => 1
+                'id' => $id,
+                'name' => $request->name,
+                'harga' => $request->price,
+
+                'quantity' => 1,
             ];
         }
 
@@ -33,13 +34,12 @@ class CartController extends Controller
         return view('page.transaksi.cart', compact('cart'))->render();
     }
 
-
     public function checkout(Request $request)
     {
         $cart = session()->get('cart');
 
         // Jika cart kosong, batalkan proses
-        if (!$cart) {
+        if (! $cart) {
             return response()->json(['status' => 'error', 'message' => 'Cart kosong!'], 400);
         }
 
@@ -85,7 +85,8 @@ class CartController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback(); // Batalkan insert jika ada error
-            return response()->json(['status' => 'error', 'message' => 'Gagal menyimpan transaksi: ' . $e->getMessage()], 500);
+
+            return response()->json(['status' => 'error', 'message' => 'Gagal menyimpan transaksi: '.$e->getMessage()], 500);
         }
     }
 
@@ -109,12 +110,12 @@ class CartController extends Controller
         return view('page.transaksi.cart', compact('cart'))->render();
     }
 
-public function index()
-{
-    // Mengambil semua transaksi beserta detail dan produknya
-    // latest('tanggal') akan mengurutkan dari transaksi paling baru
-    $transaksis = Transaksi::with(['details.produk'])->latest('tanggal')->get();
+    public function index()
+    {
+        // Mengambil semua transaksi beserta detail dan produknya
+        // latest('tanggal') akan mengurutkan dari transaksi paling baru
+        $transaksis = Transaksi::with(['details.produk'])->latest('tanggal')->get();
 
-    return view('page.transaksi.semua-transaksi', compact('transaksis'));
-}
+        return view('page.transaksi.semua-transaksi', compact('transaksis'));
+    }
 }

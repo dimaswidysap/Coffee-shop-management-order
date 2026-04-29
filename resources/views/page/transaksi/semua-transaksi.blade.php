@@ -7,7 +7,7 @@
         <div class="flex flex-col gap-4">
 
             @foreach ($transaksis as $transaksi)
-                <section class="w-full bg-foreground/30 rounded-sm shadow-lg">
+                <section class="w-full bg-foreground/30 rounded-sm shadow-lg outline-2 outline-background-second/60">
                     <div class="w-full h-14 flex justify-center gap-2 items-center">
                         {{-- div kiri --}}
                         <div class="flex-1 flex p-1 h-full flex-col">
@@ -21,7 +21,7 @@
                         {{-- div tengah --}}
                         <div class="flex-1 h-full flex flex-col text-xs font-semibold">
                             @foreach ($transaksi->details->take(2) as $detail)
-                                <span>• {{ $detail->produk->nm_produk ?? 'Produk Dihapus' }}</span>
+                                <span> {{ $detail->produk->nm_produk ?? 'Produk Dihapus' }}</span>
                             @endforeach
 
                             @if ($transaksi->details->count() > 2)

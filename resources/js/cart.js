@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
         }
 
-        // B. Jika yang diklik adalah tombol Cetak NOTA
+        // B. Jika yang diklik adalah tombol Lanjutkan
         if (e.target.closest("#btn-checkout")) {
             fetch("/cart/checkout", {
                 method: "POST",
@@ -71,10 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     return response.text();
                 })
                 .then((html) => {
+                    const containerNotifikasi = document.getElementById('container-notifikasi');
+                    const sideBar = document.getElementById('sidebar-transaksi');
+
                     // Cart berhasil disimpan dan dikosongkan dari session,
                     // update tampilan ke mode kosong
                     cartContainer.innerHTML = html;
-                    alert("Transaksi Berhasil Disimpan!"); // Opsional: Beri notifikasi sukses
+                    // alert("Transaksi Berhasil Disimpan!"); // Opsional: Beri notifikasi sukses
+                    containerNotifikasi.classList.remove('hidden');
+                    sideBar.classList.add('-translate-x-full');
                 })
                 .catch((error) => {
                     console.error("Error checkout:", error);

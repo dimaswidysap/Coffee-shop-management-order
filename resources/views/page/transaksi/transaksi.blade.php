@@ -1,17 +1,20 @@
 @extends('layout.masterTransaksi')
 @extends('components.nav-kasir')
-
+@vite('resources/js/semua-transaksi/sidebar.js')
 @section('transaksi')
     {{-- Wajib ditambahkan untuk keamanan request Fetch API Laravel --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @include('page.transaksi.notifikasi-transaksi')
+
     <section class="w-full">
-        <section class="fixed z-10 w-1/4 left-0 h-full flex justify-center items-center bottom-0 ">
+        <section id="sidebar-transaksi"
+            class="-translate-x-full fixed z-10 w-1/4 left-0 h-full flex justify-center items-center bottom-0 ">
             <div class="w-full h-full bg-background-second shadow-2xl outline-2 outline-background-second/80 flex flex-col">
                 <header class="w-full h-16 bg-background flex justify-between px-1 items-center shrink-0">
                     <h1 class="font-black text-foreground">NOTA</h1>
                     <div class="h-[90%] aspect-square rounded-full flex justify-center items-center">
-                        <button
+                        <button id="btn-close-sidebar"
                             class="absolute cursor-pointer inline-flex justify-center items-center h-10 rounded-full aspect-square bg-background-second shadow-md">
                             <span class="absolute w-[40%] h-1 rounded-md bg-foreground -rotate-45"></span>
                             <span class="absolute w-[40%] h-1 rounded-md bg-foreground rotate-45"></span>
