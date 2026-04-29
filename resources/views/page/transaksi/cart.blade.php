@@ -20,18 +20,26 @@
         @endforeach
 
         <div
-            class="w-full  absolute bottom-0 bg-background py-0.5 px-0.5 rounded-md shadow-2xl outline-1 outline-foreground/30">
-            <form>
-                <div>
-                    <label class="text-foreground font-semibold pb-3" for="uang_pelanggan">Masukan Uang Pelanggan</label>
-                    <input class='bg-background-second w-full py-3 px-1 rounded-md text-foreground!' type="number"
-                        min="0" name="uang_pelanggan">
-                </div>
-            </form>
+            class="w-full absolute bottom-0 bg-background py-0.5 px-0.5 rounded-md shadow-2xl outline-1 outline-foreground/30">
+
+            <div class="p-1">
+                <label class="text-foreground font-semibold pb-1 block" for="uang_pelanggan">
+                    Masukan Uang Pelanggan
+                </label>
+                {{-- Tambahkan id="uang_pelanggan" --}}
+                <input id="uang_pelanggan"
+                    class="bg-background-second w-full py-3 px-1 rounded-md text-foreground! font-semibold!"
+                    type="number" min="0" placeholder="0">
+            </div>
+
             <span class="inline-flex w-full py-1 px-0.5 font-bold text-foreground">
                 <p>Total :</p>
-                <p class="ml-2">Rp {{ number_format($total, 0, ',', '.') }}</p>
+                {{-- Tambahkan data-total untuk dibaca JS --}}
+                <p class="ml-2" id="total-harga" data-total="{{ $total }}">
+                    Rp {{ number_format($total, 0, ',', '.') }}
+                </p>
             </span>
+
             <button type="button" id="btn-checkout"
                 class="w-full inline-flex justify-center items-center cursor-pointer bg-background-second rounded-md py-1.5">
                 <span class="font-bold text-foreground">Lanjutkan Pembayaran</span>

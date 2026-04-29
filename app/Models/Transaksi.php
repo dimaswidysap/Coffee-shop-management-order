@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Transaksi extends Model
 {
     protected $table = 'tbl_transaksi'; // Menghubungkan ke tabel yang Anda buat
+
     protected $guarded = [];
 
     // Relasi: Satu transaksi punya banyak detail

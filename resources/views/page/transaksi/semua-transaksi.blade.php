@@ -7,19 +7,19 @@
         <div class="flex flex-col gap-4">
 
             @foreach ($transaksis as $transaksi)
-                <section class="w-full bg-foreground/30 rounded-sm shadow-lg outline-2 outline-background-second/60">
+                <section class="w-full bg-background-second rounded-sm shadow-lg outline-2 outline-background-second/60">
                     <div class="w-full h-14 flex justify-center gap-2 items-center">
                         {{-- div kiri --}}
                         <div class="flex-1 flex p-1 h-full flex-col">
-                            <span class="font-semibold text-lg text-background-second">
+                            <span class="font-semibold text-lg text-foreground/20">
                                 #{{ $transaksi->id }}
                             </span>
-                            <span class="text-sm text-background-second/80 font-semibold">
+                            <span class="text-sm text-foreground/80 font-semibold">
                                 {{ \Carbon\Carbon::parse($transaksi->tanggal)->format('d M Y H:i') }}
                             </span>
                         </div>
                         {{-- div tengah --}}
-                        <div class="flex-1 h-full flex flex-col text-xs font-semibold">
+                        <div class="flex-1 h-full flex flex-col text-xs font-semibold text-foreground">
                             @foreach ($transaksi->details->take(2) as $detail)
                                 <span> {{ $detail->produk->nm_produk ?? 'Produk Dihapus' }}</span>
                             @endforeach
@@ -38,8 +38,8 @@
 
                             {{-- UBAH ID MENJADI CLASS: btn-detail-transaksi --}}
                             <button
-                                class="btn-detail-transaksi inline-flex bg-background-second shadow-md text-foreground! py-1 cursor-pointer px-2 rounded-md font-semibold">
-                                <span>Detail</span>
+                                class="btn-detail-transaksi inline-flex bg-foreground shadow-md text-background! py-1 cursor-pointer px-2 rounded-md font-semibold">
+                                <span class="text-xs">Detail</span>
                             </button>
 
                         </div>

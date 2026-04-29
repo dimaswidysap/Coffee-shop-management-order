@@ -19,9 +19,9 @@ return new class extends Migration
             // Mendeklarasikan Relasi (Foreign Key)
             // Jika transaksi dihapus, maka detail transaksinya ikut terhapus (cascade)
             $table->foreign('id_transaksi')
-                  ->references('id')
-                  ->on('tbl_transaksi')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('tbl_transaksi')
+                ->onDelete('cascade');
 
             $table->foreign('id_produk')->references('id')->on('tbl_menu')->onDelete('cascade');
 

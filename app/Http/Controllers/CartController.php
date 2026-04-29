@@ -23,7 +23,6 @@ class CartController extends Controller
                 'id' => $id,
                 'name' => $request->name,
                 'harga' => $request->price,
-
                 'quantity' => 1,
             ];
         }
@@ -38,7 +37,6 @@ class CartController extends Controller
     {
         $cart = session()->get('cart');
 
-        // Jika cart kosong, batalkan proses
         if (! $cart) {
             return response()->json(['status' => 'error', 'message' => 'Cart kosong!'], 400);
         }
@@ -48,20 +46,20 @@ class CartController extends Controller
             $total_harga += $item['harga'] * $item['quantity'];
         }
 
-        // Gunakan DB Transaction agar jika satu tabel gagal, semua dibatalkan
+        // Ambil uang_pelanggan dari request
+        $uang_pelanggan = $request->uang_pelanggan ?? 0;
+
         DB::beginTransaction();
         try {
-            // A. Insert ke tbl_transaksi dan ambil ID barunya
-            // Sesuaikan nama kolom dengan yang ada di database Anda
             $id_transaksi = DB::table('tbl_transaksi')->insertGetId([
                 'tanggal' => now(),
                 'total_harga' => $total_harga,
-                // 'id_user' => auth()->user()->id, // Opsional jika kasir harus login
+                'uang_pelanggan' => $uang_pelanggan,          // ← tambahan
+                'kembalian' => $uang_pelanggan - $total_harga, // ← opsional, bisa dihitung
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
-            // B. Insert setiap item ke detail_transaksi
             $detail_data = [];
             foreach ($cart as $id => $item) {
                 $detail_data[] = [
@@ -75,18 +73,15 @@ class CartController extends Controller
             }
             DB::table('detail_transaksi')->insert($detail_data);
 
-            DB::commit(); // Simpan permanen ke database
-
-            // C. Kosongkan session cart setelah berhasil
+            DB::commit();
             session()->forget('cart');
 
-            // Kembalikan view cart yang sudah kosong
             return view('page.transaksi.cart')->render();
 
         } catch (\Exception $e) {
-            DB::rollback(); // Batalkan insert jika ada error
+            DB::rollback();
 
-            return response()->json(['status' => 'error', 'message' => 'Gagal menyimpan transaksi: '.$e->getMessage()], 500);
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
 
