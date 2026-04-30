@@ -111,6 +111,21 @@ class CartController extends Controller
         // latest('tanggal') akan mengurutkan dari transaksi paling baru
         $transaksis = Transaksi::with(['details.produk'])->latest('tanggal')->get();
 
+        // dd($transaksis);
+
         return view('page.transaksi.semua-transaksi', compact('transaksis'));
+    }
+
+    public function destroy($id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+
+        if (! $transaksi) {
+            return redirect()->back()->with('error', 'Transaksi tidak ditemukan');
+        }
+
+        $transaksi->delete();
+
+        return redirect()->back()->with('success', 'Transaksi berhasil dihapus');
     }
 }

@@ -11,6 +11,9 @@ Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.c
 
 Route::get('/riwayat-transaksi', [CartController::class, 'index'])->name('transaksi.index');
 
+// menghapus transaksi
+Route::delete('/transaksi/{id}', [CartController::class, 'destroy']);
+
 // landing page
 Route::get('/', function () {
     return view('page.home.landing-page');

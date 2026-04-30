@@ -38,7 +38,8 @@
                 </thead>
                 <tbody>
                     @foreach ($menu as $item)
-                        <tr class="bg-background-second shadow-sm rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <tr
+                            class="bg-background-second shadow-sm rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                             <td class="py-4 pl-4 rounded-l-xl text-sm text-foreground font-medium">
                                 <span class="px-4">{{ $loop->iteration }}</span>
                             </td>
@@ -80,8 +81,7 @@
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus menu ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="p-1.5 border bg-red-900 rounded transition-colors">
+                                        <button type="submit" class="p-1.5 border bg-red-900 rounded transition-colors">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
